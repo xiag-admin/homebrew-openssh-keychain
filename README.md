@@ -1,16 +1,12 @@
-# Homebrew Dupes
-These formulae duplicate software provided by OS X, though may provide more recent or bugfix versions.
+# Homebrew Custom Dupes
+These formulae duplicate software provided by OS X, though may provide more recent or bugfix versions.  
+This is a fork of the official homebrew/homebrew-dupes repo.
+
 
 ## How do I install these formulae?
-`brew install homebrew/dupes/<formula>`
+`brew tap leonklingele/dupes`  
+`brew install leonklingele/dupes/<formula>`
 
-Or `brew tap homebrew/dupes` and then `brew install <formula>`.
-
-Or install via URL (which will not receive updates):
-
-```
-brew install https://raw.githubusercontent.com/Homebrew/homebrew-dupes/master/<formula>.rb
-```
 
 ## Documentation
 `brew help`, `man brew` or check [Homebrew's documentation](https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme).
