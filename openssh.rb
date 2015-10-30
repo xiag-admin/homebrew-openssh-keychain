@@ -1,9 +1,9 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "http://www.openssh.com/"
-  url "http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-6.9p1.tar.gz"
-  version "6.9p1"
-  sha256 "6e074df538f357d440be6cf93dc581a21f22d39e236f217fcd8eacbb6c896cfe"
+  url "http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.1p1.tar.gz"
+  version "7.1p1"
+  sha256 "fc0a6d2d1d063d5c66dffd952493d0cda256cad204f681de0f84ef85b2ad8428"
 
   option "with-keychain-support", "Add native OS X Keychain and Launch Daemon support to ssh-agent"
   option "with-libressl", "Build with LibreSSL instead of OpenSSL"
@@ -16,8 +16,8 @@ class Openssh < Formula
 
   if build.with? "keychain-support"
     patch do
-      url "https://trac.macports.org/export/138647/trunk/dports/net/openssh/files/0002-Apple-keychain-integration-other-changes.patch"
-      sha256 "a707f34c9c639ea5963d5040bee0e543cb87e663c0f525933258f4c0e4290acb"
+      url "http://aarnet.au.rsync.macports.org/pub/macports/ports/net/openssh/files/0002-Apple-keychain-integration-other-changes.patch"
+      sha256 "bbcc14630169971c41e9c1688d1c1efeb2cf08946a0a261175e4296ca2947821"
     end
   end
 
@@ -28,7 +28,7 @@ class Openssh < Formula
 
   # Patch for SSH tunnelling issues caused by launchd changes on Yosemite
   patch do
-    url "https://trac.macports.org/export/138238/trunk/dports/net/openssh/files/launchd.patch"
+    url "https://raw.githubusercontent.com/DomT4/scripts/c24f29528/Homebrew_Resources/MacPorts_Import/OpenSSH/r138238/launchd.patch"
     sha256 "012ee24bf0265dedd5bfd2745cf8262c3240a6d70edcd555e5b35f99ed070590"
   end
 
