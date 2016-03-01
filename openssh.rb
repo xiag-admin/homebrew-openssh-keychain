@@ -1,9 +1,9 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "http://www.openssh.com/"
-  url "http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.1p2.tar.gz"
-  version "7.1p2"
-  sha256 "dd75f024dcf21e06a0d6421d582690bf987a1f6323e32ad6619392f3bfde6bbd"
+  url "http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.2p1.tar.gz"
+  version "7.2p1"
+  sha256 "973cc37b2f3597e4cf599b09e604e79c0fe5d9b6f595a24e91ed0662860b4ac3"
 
   option "with-keychain-support", "Add native OS X Keychain and Launch Daemon support to ssh-agent"
   option "with-libressl", "Build with LibreSSL instead of OpenSSL"
@@ -16,20 +16,20 @@ class Openssh < Formula
 
   if build.with? "keychain-support"
     patch do
-      url "http://aarnet.au.rsync.macports.org/pub/macports/ports/net/openssh/files/0002-Apple-keychain-integration-other-changes.patch"
-      sha256 "bbcc14630169971c41e9c1688d1c1efeb2cf08946a0a261175e4296ca2947821"
+      url "https://trac.macports.org/export/146143/trunk/dports/net/openssh/files/0002-Apple-keychain-integration-other-changes.patch"
+      sha256 "c3da958af119b0c5389ab147e39d0f8e36858dadb31585926179b0adfcd37903"
     end
   end
 
   patch do
-    url "https://raw.githubusercontent.com/Homebrew/patches/1860b0a74/openssh/patch-sandbox-darwin.c-apple-sandbox-named-external.diff"
-    sha256 "d886b98f99fd27e3157b02b5b57f3fb49f43fd33806195970d4567f12be66e71"
+    url "https://trac.macports.org/export/146143/trunk/dports/net/openssh/files/patch-sshd.c-apple-sandbox-named-external.diff"
+    sha256 "3505c58bf1e584c8af92d916fe5f3f1899a6b15cc64a00ddece1dc0874b2f78f"
   end
 
   # Patch for SSH tunnelling issues caused by launchd changes on Yosemite
   patch do
-    url "https://raw.githubusercontent.com/DomT4/scripts/c24f29528/Homebrew_Resources/MacPorts_Import/OpenSSH/r138238/launchd.patch"
-    sha256 "012ee24bf0265dedd5bfd2745cf8262c3240a6d70edcd555e5b35f99ed070590"
+    url "https://trac.macports.org/export/146143/trunk/dports/net/openssh/files/launchd.patch"
+    sha256 "df61404042385f2491dd7389c83c3ae827bf3997b1640252b018f9230eab3db3"
   end
 
   def install
