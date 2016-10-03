@@ -1,9 +1,9 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "http://www.openssh.com/"
-  url "http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.2p2.tar.gz"
-  version "7.2p2"
-  sha256 "a72781d1a043876a224ff1b0032daa4094d87565a68528759c1c2cab5482548c"
+  url "http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.3p1.tar.gz"
+  version "7.3p1"
+  sha256 "3ffb989a6dcaa69594c3b550d4855a5a2e1718ccdde7f5e36387b424220fbecc"
 
   option "with-keychain-support", "Add native OS X Keychain and Launch Daemon support to ssh-agent"
   option "with-libressl", "Build with LibreSSL instead of OpenSSL"
@@ -16,20 +16,20 @@ class Openssh < Formula
 
   if build.with? "keychain-support"
     patch do
-      url "https://trac.macports.org/export/146143/trunk/dports/net/openssh/files/0002-Apple-keychain-integration-other-changes.patch"
-      sha256 "c3da958af119b0c5389ab147e39d0f8e36858dadb31585926179b0adfcd37903"
+      url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/0002-Apple-keychain-integration-other-changes.patch"
+      sha256 "ebc87b44d3cdd9391e1e30c38a957c02f899b7464499abe9c4025b0d707ffb2c"
     end
   end
 
   patch do
-    url "https://trac.macports.org/export/146143/trunk/dports/net/openssh/files/patch-sshd.c-apple-sandbox-named-external.diff"
-    sha256 "3505c58bf1e584c8af92d916fe5f3f1899a6b15cc64a00ddece1dc0874b2f78f"
+    url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/patch-sshd.c-apple-sandbox-named-external.diff"
+    sha256 "71f663f4f8d0c4aa33f92612e2b40f7749e39fe8fa5c3ce13575fd508e897ac3"
   end
 
   # Patch for SSH tunnelling issues caused by launchd changes on Yosemite
   patch do
-    url "https://trac.macports.org/export/146143/trunk/dports/net/openssh/files/launchd.patch"
-    sha256 "df61404042385f2491dd7389c83c3ae827bf3997b1640252b018f9230eab3db3"
+    url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/launchd.patch"
+    sha256 "cc16517fb855ecfd4bd8d91c652418723dc29197715e81ba41d37b49470e9342"
   end
 
   def install
