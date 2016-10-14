@@ -17,18 +17,21 @@ class Openssh < Formula
   if build.with? "keychain-support"
     patch do
       url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/0002-Apple-keychain-integration-other-changes.patch"
+      mirror "https://gist.githubusercontent.com/leonklingele/ce4e379b82e717f20d886bf2732e2039/raw/2aab3de292c9a8edd0f0177e41c483957e6f1e70/0002-Apple-keychain-integration-other-changes.patch"
       sha256 "ebc87b44d3cdd9391e1e30c38a957c02f899b7464499abe9c4025b0d707ffb2c"
     end
   end
 
   patch do
     url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/patch-sshd.c-apple-sandbox-named-external.diff"
+    mirror "https://gist.githubusercontent.com/leonklingele/ce4e379b82e717f20d886bf2732e2039/raw/2aab3de292c9a8edd0f0177e41c483957e6f1e70/patch-sshd.c-apple-sandbox-named-external.diff"
     sha256 "71f663f4f8d0c4aa33f92612e2b40f7749e39fe8fa5c3ce13575fd508e897ac3"
   end
 
   # Patch for SSH tunnelling issues caused by launchd changes on Yosemite
   patch do
     url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/launchd.patch"
+    mirror "https://gist.githubusercontent.com/leonklingele/ce4e379b82e717f20d886bf2732e2039/raw/2aab3de292c9a8edd0f0177e41c483957e6f1e70/launchd.patch"
     sha256 "cc16517fb855ecfd4bd8d91c652418723dc29197715e81ba41d37b49470e9342"
   end
 
