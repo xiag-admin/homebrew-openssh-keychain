@@ -1,9 +1,9 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "http://www.openssh.com/"
-  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.3p1.tar.gz"
-  version "7.3p1"
-  sha256 "3ffb989a6dcaa69594c3b550d4855a5a2e1718ccdde7f5e36387b424220fbecc"
+  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.4p1.tar.gz"
+  version "7.4p1"
+  sha256 "1b1fc4a14e2024293181924ed24872e6f2e06293f3e8926a376b8aec481f19d1"
 
   option "with-keychain-support", "Add native OS X Keychain and Launch Daemon support to ssh-agent"
   option "with-libressl", "Build with LibreSSL instead of OpenSSL"
@@ -16,23 +16,20 @@ class Openssh < Formula
 
   if build.with? "keychain-support"
     patch do
-      url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/0002-Apple-keychain-integration-other-changes.patch"
-      mirror "https://gist.githubusercontent.com/leonklingele/ce4e379b82e717f20d886bf2732e2039/raw/2aab3de292c9a8edd0f0177e41c483957e6f1e70/0002-Apple-keychain-integration-other-changes.patch"
-      sha256 "ebc87b44d3cdd9391e1e30c38a957c02f899b7464499abe9c4025b0d707ffb2c"
+      url "https://gist.githubusercontent.com/leonklingele/fef82aa5be1fe5939ccdefd438959d67/raw/58f1af28dd10ee840c0b645425cd7528c0bc2700/0001-apple-keychain-integration-other-changes.patch"
+      sha256 "a9cb10c6fda5e76f4605f71cceae57953f2a79cd9f06e57de7e897f902f1b375"
     end
   end
 
   patch do
-    url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/patch-sshd.c-apple-sandbox-named-external.diff"
-    mirror "https://gist.githubusercontent.com/leonklingele/ce4e379b82e717f20d886bf2732e2039/raw/2aab3de292c9a8edd0f0177e41c483957e6f1e70/patch-sshd.c-apple-sandbox-named-external.diff"
-    sha256 "71f663f4f8d0c4aa33f92612e2b40f7749e39fe8fa5c3ce13575fd508e897ac3"
+    url "https://gist.githubusercontent.com/leonklingele/fef82aa5be1fe5939ccdefd438959d67/raw/58f1af28dd10ee840c0b645425cd7528c0bc2700/0002-apple-sandbox-named-external.patch"
+    sha256 "0aa0df2377e655b0e4401417c65c41e7f1a075c37ee89c4d0e83adcb7424a08b"
   end
 
   # Patch for SSH tunnelling issues caused by launchd changes on Yosemite
   patch do
-    url "https://trac.macports.org/export/153360/trunk/dports/net/openssh/files/launchd.patch"
-    mirror "https://gist.githubusercontent.com/leonklingele/ce4e379b82e717f20d886bf2732e2039/raw/2aab3de292c9a8edd0f0177e41c483957e6f1e70/launchd.patch"
-    sha256 "cc16517fb855ecfd4bd8d91c652418723dc29197715e81ba41d37b49470e9342"
+    url "https://gist.githubusercontent.com/leonklingele/fef82aa5be1fe5939ccdefd438959d67/raw/58f1af28dd10ee840c0b645425cd7528c0bc2700/0003-launchd.patch"
+    sha256 "ef296fa6812e6af018316b8db461e0c56ead9c3eb47762b6372b37b5e759e4a9"
   end
 
   def install
