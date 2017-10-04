@@ -1,9 +1,9 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "http://www.openssh.com/"
-  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.5p1.tar.gz"
-  version "7.5p1"
-  sha256 "9846e3c5fab9f0547400b4d2c017992f914222b3fd1f8eee6c7dc6bc5e59f9f0"
+  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.6p1.tar.gz"
+  version "7.6p1"
+  sha256 "a323caeeddfe145baaa0db16e98d784b1fbc7dd436a6bf1f479dfd5cd1d21723"
 
   option "with-keychain-support", "Add native OS X Keychain and Launch Daemon support to ssh-agent"
   option "with-libressl", "Build with LibreSSL instead of OpenSSL"
@@ -16,20 +16,20 @@ class Openssh < Formula
 
   if build.with? "keychain-support"
     patch do
-      url "https://gist.githubusercontent.com/leonklingele/afdb457f1b378b42bdbfdbc5fd59f55c/raw/5477b573087cf652c868e873b94056622c3a8647/0001-apple-keychain-integration-other-changes.patch"
-      sha256 "7fa9c74d04fb4292b3e8ebc7e2588b204b65b3c80d3137c8c93b1e7d20efd464"
+      url "https://gist.github.com/leonklingele/e4dfa1c246b8b484782b839cc5390d1c/raw/a4d3d02f8bba97a1153d9a52c0aa6e71666c02e8/0001-apple-keychain-integration-other-changes.patch"
+      sha256 "65b5134575a08ab6a1af52461f06ff25c90d2663b59eebfe51b3cec5225f5bcb"
     end
   end
 
   patch do
-    url "https://gist.githubusercontent.com/leonklingele/afdb457f1b378b42bdbfdbc5fd59f55c/raw/5477b573087cf652c868e873b94056622c3a8647/0002-apple-sandbox-named-external.patch"
-    sha256 "b8c2596d27a931d557e550b756c8477a3acf8de9e1af96188ad5fa83c428f647"
+    url "https://gist.github.com/leonklingele/e4dfa1c246b8b484782b839cc5390d1c/raw/a4d3d02f8bba97a1153d9a52c0aa6e71666c02e8/0002-apple-sandbox-named-external.patch"
+    sha256 "40ef058514dc24dfb9bf8eee676e3b7254a974bed77dee0cb159e3d5f644f481"
   end
 
   # Patch for SSH tunnelling issues caused by launchd changes on Yosemite
   patch do
-    url "https://gist.githubusercontent.com/leonklingele/afdb457f1b378b42bdbfdbc5fd59f55c/raw/5477b573087cf652c868e873b94056622c3a8647/0003-launchd.patch"
-    sha256 "eafbbc0992601539af73fbf3144fdb2fb55154cdef68a1de19cd690597dafb54"
+    url "https://gist.github.com/leonklingele/e4dfa1c246b8b484782b839cc5390d1c/raw/a4d3d02f8bba97a1153d9a52c0aa6e71666c02e8/0003-launchd.patch"
+    sha256 "abb1bb9ad20c87d64926dbc2ef03d31940c1cf223c7ae54dc1671e753e72f441"
   end
 
   def install
