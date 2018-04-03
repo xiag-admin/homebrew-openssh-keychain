@@ -4,6 +4,7 @@ class Openssh < Formula
   url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.7p1.tar.gz"
   version "7.7p1"
   sha256 "d73be7e684e99efcd024be15a30bffcbe41b012b2f7b3c9084aed621775e6b8f"
+  revision 1
 
   option "with-keychain-support", "Add native OS X Keychain and Launch Daemon support to ssh-agent"
   option "with-libressl", "Build with LibreSSL instead of OpenSSL"
@@ -16,20 +17,19 @@ class Openssh < Formula
 
   if build.with? "keychain-support"
     patch do
-      url "https://gist.github.com/leonklingele/076b3a93c26b904313e4c37344624a93/raw/19af1b999ab3f59208e016696126b3b277d49e81/0001-apple-keychain-integration-other-changes.patch"
-      sha256 "25931009b1b3a6247b74d292b1accbeb5bdb336dfac43d095a91d97e5a0238b3"
+      url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/e65ca36aba30e126164c924efce1769551bae5e6/0001-apple-keychain-integration-other-changes.patch"
+      sha256 "0905d5ad667f28ae02e7f3ae22bf0f0cadfab879ca279aee4f82c54ef6bf1777"
     end
   end
 
   patch do
-    url "https://gist.github.com/leonklingele/076b3a93c26b904313e4c37344624a93/raw/19af1b999ab3f59208e016696126b3b277d49e81/0002-apple-sandbox-named-external.patch"
-    sha256 "8944fc5af65bd8fe7c5fd5b8ab46ca113c6bd47886fad7b0e7011af53aea73ff"
+    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/e65ca36aba30e126164c924efce1769551bae5e6/0002-apple-sandbox-named-external.patch"
+    sha256 "78198564069231fb6e3d4259004d51824b13cdfddc267c66c56a35f443f3b117"
   end
 
-  # Patch for SSH tunnelling issues caused by launchd changes on Yosemite
-  patch do
-    url "https://gist.github.com/leonklingele/076b3a93c26b904313e4c37344624a93/raw/19af1b999ab3f59208e016696126b3b277d49e81/0003-launchd.patch"
-    sha256 "af531f3f27b4cfc71e56a4d96ab050bd4212afd5be227d9a6f78552455893103"
+  resource "com.openssh.sshd.sb" do
+    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/e65ca36aba30e126164c924efce1769551bae5e6/com.openssh.sshd.sb"
+    sha256 "a273f86360ea5da3910cfa4c118be931d10904267605cdd4b2055ced3a829774"
   end
 
   def install
