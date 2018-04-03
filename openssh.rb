@@ -1,7 +1,8 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
-  homepage "http://www.openssh.com/"
+  homepage "https://www.openssh.com/"
   url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.7p1.tar.gz"
+  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-7.7p1.tar.gz"
   version "7.7p1"
   sha256 "d73be7e684e99efcd024be15a30bffcbe41b012b2f7b3c9084aed621775e6b8f"
   revision 1
@@ -33,7 +34,7 @@ class Openssh < Formula
   end
 
   def install
-    system "autoreconf -i" if build.with? "keychain-support"
+    system "autoreconf", "-i" if build.with? "keychain-support"
 
     if build.with? "keychain-support"
       ENV.append "CPPFLAGS", "-D__APPLE_LAUNCHD__ -D__APPLE_KEYCHAIN__"
@@ -42,13 +43,19 @@ class Openssh < Formula
 
     ENV.append "CPPFLAGS", "-D__APPLE_SANDBOX_NAMED_EXTERNAL__"
 
+    # Ensure sandbox profile prefix is correct.
+    # We introduce this issue with patching, it's not an upstream bug.
+    inreplace "sandbox-darwin.c", "@PREFIX@/share/openssh", etc/"ssh"
+
     args = %W[
       --with-libedit
-      --with-pam
       --with-kerberos5
       --prefix=#{prefix}
       --sysconfdir=#{etc}/ssh
+      --with-pam
     ]
+
+    args << "--with-ldns" if build.with? "ldns"
 
     if build.with? "libressl"
       args << "--with-ssl-dir=#{Formula["libressl"].opt_prefix}"
@@ -56,44 +63,30 @@ class Openssh < Formula
       args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
     end
 
-    args << "--with-ldns" if build.with? "ldns"
-
     system "./configure", *args
     system "make"
+    ENV.deparallelize
     system "make", "install"
+
+    # This was removed by upstream with very little announcement and has
+    # potential to break scripts, so recreate it for now.
+    # Debian have done the same thing.
+    bin.install_symlink bin/"ssh" => "slogin"
+
+    buildpath.install resource("com.openssh.sshd.sb")
+    (etc/"ssh").install "com.openssh.sshd.sb" => "org.openssh.sshd.sb"
   end
 
-  def caveats
-    if build.with? "keychain-support" then <<-EOS.undent
-        NOTE: replacing system daemons is unsupported. Proceed at your own risk.
+  test do
+    assert_match "OpenSSH_", shell_output("#{bin}/ssh -V 2>&1")
 
-        For complete functionality, please modify:
-          /System/Library/LaunchAgents/org.openbsd.ssh-agent.plist
-
-        and change ProgramArguments from
-          /usr/bin/ssh-agent
-        to
-          #{HOMEBREW_PREFIX}/bin/ssh-agent
-
-        You will need to restart or issue the following commands
-        for the changes to take effect:
-
-          launchctl unload /System/Library/LaunchAgents/org.openbsd.ssh-agent.plist
-          launchctl load /System/Library/LaunchAgents/org.openbsd.ssh-agent.plist
-
-        Finally, add  these lines somewhere to your ~/.bash_profile:
-          eval $(ssh-agent)
-
-          function cleanup {
-            echo "Killing SSH-Agent"
-            kill -9 $SSH_AGENT_PID
-          }
-
-          trap cleanup EXIT
-
-        After that, you can start storing private key passwords in
-        your OS X Keychain.
-      EOS
+    begin
+      pid = fork { exec sbin/"sshd", "-D", "-p", "8022" }
+      sleep 2
+      assert_match "sshd", shell_output("lsof -i :8022")
+    ensure
+      Process.kill(9, pid)
+      Process.wait(pid)
     end
   end
 end
