@@ -1,11 +1,10 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "https://www.openssh.com/"
-  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.7p1.tar.gz"
-  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-7.7p1.tar.gz"
-  version "7.7p1"
-  sha256 "d73be7e684e99efcd024be15a30bffcbe41b012b2f7b3c9084aed621775e6b8f"
-  revision 1
+  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.8p1.tar.gz"
+  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-7.8p1.tar.gz"
+  version "7.8p1"
+  sha256 "1a484bb15152c183bb2514e112aa30dd34138c3cfb032eee5490a66c507144ca"
 
   option "with-keychain-support", "Add native OS X Keychain and Launch Daemon support to ssh-agent"
   option "with-libressl", "Build with LibreSSL instead of OpenSSL"
@@ -18,18 +17,18 @@ class Openssh < Formula
 
   if build.with? "keychain-support"
     patch do
-      url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/e65ca36aba30e126164c924efce1769551bae5e6/0001-apple-keychain-integration-other-changes.patch"
-      sha256 "0905d5ad667f28ae02e7f3ae22bf0f0cadfab879ca279aee4f82c54ef6bf1777"
+      url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/273738ffa125857cec5494fe89768ab6e080e0f6/0001-apple-keychain-integration-other-changes.patch"
+      sha256 "f8041d6409779e753823ddf7295115240f7978481402aa812df5cd909a4994cc"
     end
   end
 
   patch do
-    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/e65ca36aba30e126164c924efce1769551bae5e6/0002-apple-sandbox-named-external.patch"
-    sha256 "78198564069231fb6e3d4259004d51824b13cdfddc267c66c56a35f443f3b117"
+    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/273738ffa125857cec5494fe89768ab6e080e0f6/0002-apple-sandbox-named-external.patch"
+    sha256 "184440542077982a737bba1d2a947dbc602686877d20d6f9fc79e25ed0b06494"
   end
 
   resource "com.openssh.sshd.sb" do
-    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/e65ca36aba30e126164c924efce1769551bae5e6/com.openssh.sshd.sb"
+    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/273738ffa125857cec5494fe89768ab6e080e0f6/com.openssh.sshd.sb"
     sha256 "a273f86360ea5da3910cfa4c118be931d10904267605cdd4b2055ced3a829774"
   end
 
