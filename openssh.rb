@@ -15,6 +15,11 @@ class Openssh < Formula
   depends_on "ldns" => :optional
   depends_on "pkg-config" => :build if build.with? "ldns"
 
+  resource "com.openssh.sshd.sb" do
+    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/273738ffa125857cec5494fe89768ab6e080e0f6/com.openssh.sshd.sb"
+    sha256 "a273f86360ea5da3910cfa4c118be931d10904267605cdd4b2055ced3a829774"
+  end
+
   if build.with? "keychain-support"
     patch do
       url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/273738ffa125857cec5494fe89768ab6e080e0f6/0001-apple-keychain-integration-other-changes.patch"
@@ -25,11 +30,6 @@ class Openssh < Formula
   patch do
     url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/273738ffa125857cec5494fe89768ab6e080e0f6/0002-apple-sandbox-named-external.patch"
     sha256 "184440542077982a737bba1d2a947dbc602686877d20d6f9fc79e25ed0b06494"
-  end
-
-  resource "com.openssh.sshd.sb" do
-    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/273738ffa125857cec5494fe89768ab6e080e0f6/com.openssh.sshd.sb"
-    sha256 "a273f86360ea5da3910cfa4c118be931d10904267605cdd4b2055ced3a829774"
   end
 
   def install
