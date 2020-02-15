@@ -1,10 +1,10 @@
 class Openssh < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "https://www.openssh.com/"
-  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz"
-  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.1p1.tar.gz"
-  version "8.1p1"
-  sha256 "02f5dbef3835d0753556f973cd57b4c19b6b1f6cd24c03445e23ac77ca1b93ff"
+  url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.2p1.tar.gz"
+  mirror "https://mirror.vdms.io/pub/OpenBSD/OpenSSH/portable/openssh-8.2p1.tar.gz"
+  version "8.2p1"
+  sha256 "43925151e6cf6cee1450190c0e9af4dc36b41c12737619edff8bcebdff64e671"
 
   option "with-keychain-support", "Add native OS X Keychain and Launch Daemon support to ssh-agent"
   option "with-libressl", "Build with LibreSSL instead of OpenSSL"
@@ -16,20 +16,20 @@ class Openssh < Formula
   depends_on "pkg-config" => :build if build.with? "ldns"
 
   resource "com.openssh.sshd.sb" do
-    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/564646d4c3867725edbe6b7af578f061cd8994d2/com.openssh.sshd.sb"
+    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/eca1a2ff6307275a986ab9c8deff5a26cca7db37/com.openssh.sshd.sb"
     sha256 "a273f86360ea5da3910cfa4c118be931d10904267605cdd4b2055ced3a829774"
   end
 
   if build.with? "keychain-support"
     patch do
-      url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/564646d4c3867725edbe6b7af578f061cd8994d2/0001-apple-keychain-integration-other-changes.patch"
-      sha256 "06be6422f0ec76fb451a7a4c4126f226d9809d1cc467c5721017ff9188c2b5f1"
+      url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/eca1a2ff6307275a986ab9c8deff5a26cca7db37/0001-apple-keychain-integration-other-changes.patch"
+      sha256 "85d758e8fc3683b7bf60b097554c07c850cf01acb7887cca0b0e62123c2c375f"
     end
   end
 
   patch do
-    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/564646d4c3867725edbe6b7af578f061cd8994d2/0002-apple-sandbox-named-external.patch"
-    sha256 "653a7a4b2baa702b2e975b786974b80d926aa50614ca640c7d510dd35c613f02"
+    url "https://gist.githubusercontent.com/leonklingele/01c01e6d9d143fa5b1df8e2354d808e4/raw/eca1a2ff6307275a986ab9c8deff5a26cca7db37/0002-apple-sandbox-named-external.patch"
+    sha256 "35259e48e4f1a22f123837dd898d5a06b37c4b14c7783027d65dd2724ff663f3"
   end
 
   def install
