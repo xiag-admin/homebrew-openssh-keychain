@@ -34,6 +34,11 @@ class OpensshAT89p1 < Formula
     sha256 "b5ef64294f123f1f850849b52729fdd12e8feff629d9d37843c4bf9c81d83a31"
   end
 
+  patch do
+    url "https://gist.githubusercontent.com/xiag-admin/d1a37f10e7a9b1e15a3c25ecab6534f4/raw/0ebe3360e5150483bc9b6dbec2106023c437596b/0003-usage-notes-fixes.patch"
+    sha256 "0b8863c93da34349aec13addfb718eaf21b69354aad52f1e990393c55bf0e2d2"
+  end
+
   def install
     system "autoreconf", "-i" if build.with? "keychain-support"
 
