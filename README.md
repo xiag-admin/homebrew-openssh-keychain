@@ -4,4 +4,4 @@ Huge kudos to to https://github.com/leonklingele/homebrew-dupes for porting Appl
 ## How do I install?
 
 `brew tap xiag-admin/openssh-keychain`  
-`brew install xiag-admin/openssh-keychain/openssh@8.9p1>`
+`brew install xiag-admin/openssh-keychain/openssh@8.9p1`
