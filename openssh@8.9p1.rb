@@ -36,7 +36,7 @@ class OpensshAT89p1 < Formula
 
   patch do
     url "https://gist.githubusercontent.com/xiag-admin/d1a37f10e7a9b1e15a3c25ecab6534f4/raw/0ebe3360e5150483bc9b6dbec2106023c437596b/0003-usage-notes-fixes.patch"
-    sha256 "0b8863c93da34349aec13addfb718eaf21b69354aad52f1e990393c55bf0e2d2"
+    sha256 "b4761f6f2177d3ef8395d9a6054406b4bc3e115ed2199bfea1b77b734b3ff9af"
   end
 
   def install
