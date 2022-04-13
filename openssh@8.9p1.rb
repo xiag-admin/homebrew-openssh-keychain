@@ -1,4 +1,4 @@
-class Openssh < Formula
+class OpensshAT89p1 < Formula
   desc "OpenBSD freely-licensed SSH connectivity tools"
   homepage "https://www.openssh.com/"
   url "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-8.9p1.tar.gz"
@@ -11,9 +11,10 @@ class Openssh < Formula
 
   depends_on "autoconf" => :build if build.with? "keychain-support"
   depends_on "automake" => :build if build.with? "keychain-support"
-  depends_on "openssl" => :recommended
+  depends_on "openssl@1.1"
   depends_on "libressl" => :optional
   depends_on "ldns" => :optional
+  depends_on "xiag-admin/libfido2-macos-nfc/libfido2@1.10.0macnfc"
   depends_on "pkg-config" => :build if build.with? "ldns"
 
   resource "com.openssh.sshd.sb" do
@@ -53,6 +54,7 @@ class Openssh < Formula
       --prefix=#{prefix}
       --sysconfdir=#{etc}/ssh
       --with-pam
+      --with-security-key-builtin
     ]
 
     args << "--with-ldns" if build.with? "ldns"
@@ -60,7 +62,8 @@ class Openssh < Formula
     if build.with? "libressl"
       args << "--with-ssl-dir=#{Formula["libressl"].opt_prefix}"
     else
-      args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
+#      args << "--with-ssl-dir=#{Formula["openssl"].opt_prefix}"
+      args << "--with-ssl-dir=#{Formula["openssl@1.1"].opt_prefix}"
     end
 
     system "./configure", *args
